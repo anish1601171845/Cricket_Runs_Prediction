@@ -153,3 +153,40 @@ Glenn Maxwell          Sunrisers Hyderabad          35       34 runs
 
 ---
 
+## 🎤 Interview Questions & Answers
+
+**Q1. What is Linear Regression?**
+A model that fits a straight line through data points by minimising the sum of
+squared errors. The Normal Equation solves θ = (XᵀX)⁻¹Xᵀy in closed form.
+
+**Q2. Why did you use rolling average as a feature?**
+A player's recent form is a better predictor of next-match score than career
+average. A batter in peak form (last 5 avg = 60) is more likely to score than
+one whose long-run average is 60 but recent form is 20.
+
+**Q3. Why is R² low here?**
+Cricket scores are high-variance — even in-form players get dismissed early.
+The model captures trend but can't account for unstructured randomness (lucky
+wickets, weather changes). More features would improve it.
+
+**Q4. Scratch vs Sklearn — any difference in results?**
+Both produce identical results because both solve the same Normal Equation.
+Sklearn adds numerical stability improvements (SVD-based solver) but for our
+clean dataset both match to several decimal places.
+
+**Q5. How would you improve this model?**
+- Add more features: toss result, pitch type, bowler quality index, weather
+- Use non-linear models: Random Forest, XGBoost
+- Per-player models with more data
+- Time-series cross-validation to respect temporal ordering
+
+**Q6. What is Label Encoding? Could you use One-Hot instead?**
+Label Encoding maps categories to integers (Kohli→5). It introduces false
+ordinal relationships. One-Hot Encoding creates binary columns and avoids
+this — better for tree models. For linear regression, one-hot is generally
+preferred, but with many categories it creates wide matrices.
+
+**Q7. What does MAE vs RMSE tell you?**
+MAE treats all errors equally. RMSE squares errors first, so large mistakes
+(predicting 100 when actual is 10) are penalised much more heavily. In
+cricket prediction, RMSE better reflects that big misses are costly.
